@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How do I create an account?",
+    "answer": "Click on the 'Sign Up' button, fill in the required details, and verify your email to activate your account."
+  },
+  {
+    "question": "What formats are supported for video uploads?",
+    "answer": "We support popular formats such as MP4, AVI, MOV, and MKV. Ensure your file size is within the specified limit."
+  },
+  {
+    "question": "How can I add credits to my account?",
+    "answer": "Log in, navigate to the 'Add Credits' section, select a payment method, and complete the transaction to top up your account."
+  },
+  {
+    "question": "What is the turnaround time for background removal?",
+    "answer": "The process is typically completed within seconds, depending on the video size and complexity of the background."
+  },
+  {
+    "question": "Can I use the service for free?",
+    "answer": "Yes, limited features are available for free. To access premium services, you'll need to add credits to your account."
+  },
+  {
+    "question": "Is my data secure on your platform?",
+    "answer": "Absolutely. We use advanced encryption and security protocols to ensure your data is safe and confidential."
+  },
+  {
+    "question": "Can I download videos in high quality after background removal?",
+    "answer": "Yes, you can download videos in the original quality or select a preferred resolution based on your needs."
+  },
+  {
+    "question": "What should I do if my video fails to process?",
+    "answer": "Ensure your video meets the format and size requirements. If the issue persists, contact our support team for assistance."
+  },
+  {
+    "question": "Are there any restrictions on video length?",
+    "answer": "Yes, free accounts have a 5-minute video length limit. Premium users can upload videos up to 30 minutes long."
+  },
+  {
+    "question": "How do I contact customer support?",
+    "answer": "Visit our 'Contact Us' page to submit a query or email us directly at support@example.com. We typically respond within 24 hours."
+  }
+]

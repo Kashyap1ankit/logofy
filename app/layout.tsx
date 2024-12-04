@@ -18,8 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <AuroraBackground className="py-8 md:py-24">
-          {children}
+        <AuroraBackground className="py-8 md:py-24 -z-1">
+          <div className="z-10">{children}</div>
         </AuroraBackground>
       </body>
     </html>

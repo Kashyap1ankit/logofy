@@ -1,4 +1,4 @@
-import { Heebo, Lato } from "next/font/google";
+import { Heebo, Lato, Roboto } from "next/font/google";
 
 export const lato = Lato({
   subsets: ["latin"],
@@ -10,4 +10,10 @@ export const heebo = Heebo({
   subsets: ["hebrew", "latin"],
   display: "auto",
   weight: "800",
+});
+
+export const roboto = Roboto({
+  subsets: ["latin"],
+  display: "auto",
+  weight: "500",
 });
