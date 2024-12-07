@@ -9,9 +9,11 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tally3 } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -31,12 +33,12 @@ export default function Navbar() {
     <div
       className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50 bg-smoke-100  shadow-sm duration-500 backdrop-blur-xl bg-white/50`}
     >
-      <div className="flex gap-2 items-center">
+      <Link href={"/"} className="flex gap-2 items-center" aria-label="logo">
         <Image
           src={"/greenify.png"}
           width={500}
           height={500}
-          className="w-10 rounded-md"
+          className="w-8 rounded-sm"
           alt="logo"
           aria-label="logo"
         />
@@ -45,7 +47,7 @@ export default function Navbar() {
         >
           Greenify
         </p>
-      </div>
+      </Link>
 
       <div className="hidden md:block">
         <NavItems />
@@ -57,6 +59,7 @@ export default function Navbar() {
             <Tally3 className="rotate-90" />
           </DialogTrigger>
           <DialogContent className="fixed top-24 rounded-md max-w-[300px]">
+            <DialogTitle></DialogTitle>
             <DialogHeader className="mt-4">
               <DialogDescription>
                 <NavItems />

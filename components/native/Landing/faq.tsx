@@ -32,7 +32,7 @@ export default function Faq() {
   return (
     <DotBackgroundDemo>
       <motion.div
-        className="flex flex-col gap-4 border-gray-100 md:p-12 mx-auto"
+        className="flex flex-col gap-4 border-gray-100 md:pl-24 md:py-8"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{
           opacity: 1,
@@ -50,11 +50,11 @@ export default function Faq() {
           These are the most commonly asked questions about Untitled UI
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 mt-8 gap-8  ">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 mt-8 gap-8  ">
           {FaqData.map((e, i) => {
             const Icon = iconsArray[i];
             return (
-              <div className="flex gap-2 " key={i}>
+              <div className="flex gap-4 " key={i}>
                 <Icon className="size-10 text-black bg-violet-200 p-2 rounded-md text-purple-900" />
                 <div>
                   <p className="text-xl text-bold text-black">{e.question}</p>

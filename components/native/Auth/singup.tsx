@@ -1,0 +1,189 @@
+"use client";
+
+import { heebo, roboto } from "@/app/fonts/font";
+import { SeparatorWithText } from "@/components/ui/separator-new";
+import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signupSchema, signupType } from "@/lib/validators/auth.validator";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { IoEye, IoCaretForwardOutline } from "react-icons/io5";
+import { IoMdEyeOff, IoIosMailUnread } from "react-icons/io";
+import { FaLock, FaAt } from "react-icons/fa";
+import Link from "next/link";
+
+export default function SignUpComp() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const form = useForm({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+      email: "",
+    },
+  });
+
+  function onSubmit(data: signupType) {
+    console.log(data);
+  }
+
+  return (
+    <div className="w-full h-full flex justify-center items-center min-h-screen bg-white/50 backdrop-blur-xl">
+      <div className="bg-[#f7f7f7]  md:min-w-[520px]  md:max-w-md  h-fit border border-neutral-200 rounded-xl shadow-xl ">
+        <div className="flex flex-col gap-8 bg-white p-8 rounded-xl">
+          <div>
+            <h1
+              className={`${heebo.className} text-2xl font-bold  text-center `}
+            >
+              Create your Account
+            </h1>
+            <p className="text-center text-gray-400 text-sm mt-2">
+              Welcome! Please fill in the detials to get started
+            </p>
+          </div>
+
+          <div className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer">
+            <FcGoogle className="size-6" />
+            <p className={`${roboto.className} font-bold`}>Google</p>
+          </div>
+
+          <SeparatorWithText
+            text="or"
+            lineClassName="border-dashed border-gray-400"
+          />
+
+          <div>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel
+                        className={`${roboto.className} tracking-wider`}
+                      >
+                        Username
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                          <FaAt className="size-4 text-gray-400" />
+                          <Input
+                            placeholder="greenify_123"
+                            {...field}
+                            className="outline-0 border-none focus-none shadow-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel
+                        className={`${roboto.className} tracking-wider`}
+                      >
+                        Email
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                          <IoIosMailUnread className="size-6 text-gray-400" />
+                          <Input
+                            placeholder="virat@greenify.com"
+                            {...field}
+                            className="outline-0 border-none focus-none shadow-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="md:col-span-2">
+                      <FormLabel
+                        className={`${roboto.className} tracking-wider`}
+                      >
+                        Password
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                          <FaLock className="size-4 text-gray-400" />
+                          <Input
+                            placeholder="Hello@1"
+                            {...field}
+                            className="outline-0 border-none focus-none shadow-none"
+                            type={passwordVisible ? "text" : "password"}
+                          />
+                          {passwordVisible ? (
+                            <IoEye
+                              onClick={() => setPasswordVisible(false)}
+                              className="text-gray-400 cursor-pointer"
+                            />
+                          ) : (
+                            <IoMdEyeOff
+                              onClick={() => setPasswordVisible(true)}
+                              className="text-gray-400 cursor-pointer"
+                            />
+                          )}
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  className="flex gap-2 md:col-span-2 bg-[#9175fd] hover:bg-[#9175fd] items-center"
+                  type="submit"
+                >
+                  <p className={`${heebo.className} font-bold tracking-wide `}>
+                    Submit
+                  </p>
+                  <IoCaretForwardOutline />
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </div>
+
+        {/* login part  */}
+
+        <div className="flex gap-2 items-center  justify-center py-4 px-8">
+          <p className={`${roboto.className} text-sm text-gray-500`}>
+            Already have an account ?
+          </p>
+          <Link
+            href={"/signin"}
+            aria-label="signin-redirect"
+            className={`${roboto.className} text-sm text-[#9175fd] font-bold`}
+          >
+            Sign in
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
