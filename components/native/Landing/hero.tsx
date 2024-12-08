@@ -6,8 +6,12 @@ import { Button } from "@/components/ui/button";
 import { heebo } from "@/app/fonts/font";
 import { HiUserGroup } from "react-icons/hi2";
 import { GiSoapExperiment } from "react-icons/gi";
+import { useSession } from "next-auth/react";
 
 export function HeroSection() {
+  const session = useSession();
+
+  console.log(session);
   return (
     <div className="flex flex-col gap-8 items-center min-h-screen">
       <div className="w-fit mb-4 bg-gradient-to-r from-purple-400 via-purple-700 to-purple-900 animate-gradientX px-4 py-2 rounded-full text-white text-sm shadow-sm shadow-purple-700">

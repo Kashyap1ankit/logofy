@@ -19,11 +19,18 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { IoEye, IoCaretForwardOutline } from "react-icons/io5";
 import { IoMdEyeOff, IoIosMailUnread } from "react-icons/io";
-import { FaLock, FaAt } from "react-icons/fa";
+import { FaLock, FaAt, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { SignupAction } from "@/app/actions/auth.action";
+
+import { useRouter } from "next/navigation";
+import { errorToast, successToast } from "../toast";
 
 export default function SignUpComp() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -34,8 +41,20 @@ export default function SignUpComp() {
     },
   });
 
-  function onSubmit(data: signupType) {
-    console.log(data);
+  async function onSubmit(data: signupType) {
+    try {
+      setLoading(true);
+      const response = await SignupAction(data);
+
+      if (response.status !== 200) throw new Error(response.message);
+      successToast(response.message);
+      router.push("/signin");
+    } catch (error) {
+      errorToast((error as Error).message);
+    } finally {
+      setLoading(false);
+      form.reset();
+    }
   }
 
   return (
@@ -53,7 +72,10 @@ export default function SignUpComp() {
             </p>
           </div>
 
-          <div className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer">
+          <div
+            className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+          >
             <FcGoogle className="size-6" />
             <p className={`${roboto.className} font-bold`}>Google</p>
           </div>
@@ -158,11 +180,20 @@ export default function SignUpComp() {
                 <Button
                   className="flex gap-2 md:col-span-2 bg-[#9175fd] hover:bg-[#9175fd] items-center"
                   type="submit"
+                  disabled={loading}
                 >
-                  <p className={`${heebo.className} font-bold tracking-wide `}>
-                    Submit
-                  </p>
-                  <IoCaretForwardOutline />
+                  {loading ? (
+                    <FaSpinner />
+                  ) : (
+                    <>
+                      <p
+                        className={`${heebo.className} font-bold tracking-wide `}
+                      >
+                        Submit
+                      </p>
+                      <IoCaretForwardOutline />
+                    </>
+                  )}
                 </Button>
               </form>
             </Form>

@@ -21,9 +21,13 @@ import { IoEye, IoCaretForwardOutline } from "react-icons/io5";
 import { IoMdEyeOff, IoIosMailUnread } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { errorToast, successToast } from "../toast";
 
 export default function SignInComp() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(signinSchema),
@@ -33,8 +37,21 @@ export default function SignInComp() {
     },
   });
 
-  function onSubmit(data: signinType) {
-    console.log(data);
+  async function onSubmit(data: signinType) {
+    try {
+      const response = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
+
+      if (response?.error) throw new Error("Credential Mismatched");
+
+      successToast("Successfully Logged In");
+      router.push("/");
+    } catch (error) {
+      errorToast((error as Error).message);
+      form.reset();
+    }
   }
 
   return (
@@ -52,7 +69,10 @@ export default function SignInComp() {
             </p>
           </div>
 
-          <div className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer">
+          <div
+            className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+          >
             <FcGoogle className="size-6" />
             <p className={`${roboto.className} font-bold`}>Google</p>
           </div>
