@@ -1,12 +1,9 @@
 import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
-import Google from "next-auth/providers/google";
-import { Adapter } from "next-auth/adapters";
 import { NextConfig } from "next";
-import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
-import { signinSchema } from "./lib/validators/auth.validator";
+import { AuthConfig } from "@/lib/auth.config";
+import { Adapter } from "next-auth/adapters";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "./lib/prisma";
 
 const custom: Adapter = {
   ...PrismaAdapter(prisma),
@@ -22,67 +19,74 @@ const custom: Adapter = {
 };
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...AuthConfig,
   adapter: custom,
-  providers: [
-    Google,
-    Credentials({
-      credentials: {
-        email: {},
-        password: {},
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 3,
+  },
+  cookies: {
+    sessionToken: {
+      name: "session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        maxAge: 60 * 60 * 24 * 7, //7days persistent
       },
+    },
+  },
 
-      async authorize(credentials) {
-        try {
-          const { success } = signinSchema.safeParse({
-            email: credentials.email,
-            password: credentials.password,
-          });
-
-          if (!success) throw new Error("Schema validation failed");
-
-          const isUser = await prisma.user.findFirst({
-            where: {
-              email: credentials.email as string,
-            },
-          });
-
-          if (!isUser) throw new Error("No such user in record");
-
-          const comparePassword = await bcrypt.compare(
-            credentials.password as string,
-            isUser.password as string,
-          );
-
-          if (!comparePassword) throw new Error("Password Mismatched");
-
-          return {
-            id: isUser.id,
-            email: isUser.email,
-            name: isUser.name,
-            username: isUser.username,
-          };
-        } catch {
-          return null;
-        }
-      },
-    }),
-  ],
   callbacks: {
-    async session({ session, user }) {
-      session.user = {
-        id: user.id,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        image: user.image,
-        username: user.username,
-      };
+    async signIn({ user, account }) {
+      //No need to manage the logic for oAuth as adapter handles it
+      if (account?.provider === "credentials") {
+        const userDetails = await prisma.user.findFirst({
+          where: {
+            username: user.username,
+          },
+          select: {
+            password: false,
+            id: true,
+            name: true,
+            email: true,
+            emailVerified: true,
+            image: true,
+            username: true,
+            createdAt: true,
+          },
+        });
+
+        if (!userDetails) return false;
+
+        user.createdAt = userDetails.createdAt;
+        user.image = userDetails.image;
+        user.name = userDetails.name;
+        return true;
+      }
+      return true;
+    },
+
+    async jwt({ user, token }) {
+      if (user) {
+        token.id = user.id;
+        token.username = user.username;
+        token.createdAt = user.createdAt;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.username = token.username;
+        session.user.createdAt = token.createdAt;
+      }
       return session;
     },
   },
   pages: {
     signIn: "/signin",
-  },
-  session: {
-    strategy: "database",
   },
 }) satisfies NextConfig;

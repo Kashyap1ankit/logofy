@@ -1,7 +1,15 @@
-import { DefaultUser, DefaultAdapter } from "next-auth";
+import { DefaultUser } from "next-auth";
 
 declare module "next-auth" {
   interface User extends DefaultUser {
-    username?: string | null;
+    username?: string;
+    createdAt?: DateTime;
+  }
+
+  interface Session {
+    user: {
+      id: string;
+      username: string;
+    } & DefaultUser;
   }
 }

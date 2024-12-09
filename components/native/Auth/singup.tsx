@@ -26,6 +26,7 @@ import { SignupAction } from "@/app/actions/auth.action";
 
 import { useRouter } from "next/navigation";
 import { errorToast, successToast } from "../toast";
+import { UserPen } from "lucide-react";
 
 export default function SignUpComp() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -35,6 +36,7 @@ export default function SignUpComp() {
   const form = useForm({
     resolver: zodResolver(signupSchema),
     defaultValues: {
+      name: "",
       username: "",
       password: "",
       email: "",
@@ -93,6 +95,31 @@ export default function SignUpComp() {
               >
                 <FormField
                   control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel
+                        className={`${roboto.className} tracking-wider`}
+                      >
+                        Display Name
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                          <UserPen className="fill-gray-400 size-4 text-gray-400" />
+                          <Input
+                            placeholder="Vyrat Kohli"
+                            {...field}
+                            className="outline-0 border-none focus-none shadow-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name="username"
                   render={({ field }) => (
                     <FormItem>
@@ -145,7 +172,7 @@ export default function SignUpComp() {
                   control={form.control}
                   name="password"
                   render={({ field }) => (
-                    <FormItem className="md:col-span-2">
+                    <FormItem>
                       <FormLabel
                         className={`${roboto.className} tracking-wider`}
                       >
