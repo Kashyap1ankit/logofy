@@ -16,6 +16,7 @@ model User {
   username      String          @unique
   password      String?
   accounts      Account[]
+  history       History[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -42,4 +43,13 @@ model Account {
 }
  
 
- 
+ model History {
+  id        String @id @default(uuid())
+  original  String 
+  final     String?
+  userId    String
+  user      User  @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ }

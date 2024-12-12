@@ -7,6 +7,7 @@ import { heebo } from "@/app/fonts/font";
 import { HiUserGroup } from "react-icons/hi2";
 import { GiSoapExperiment } from "react-icons/gi";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export function HeroSection() {
   const session = useSession();
@@ -42,12 +43,14 @@ export function HeroSection() {
       </motion.p>
 
       <div className="flex flex-wrap  gap-8 mt-12 ">
-        <Button className="py-6 px-12 rounded-md ">
-          <GiSoapExperiment className="w-12" />
-          <p className={`font-bold ${heebo.className}  tracking-wide `}>
-            Try Now
-          </p>
-        </Button>
+        <Link href={"/generate"} aria-label="generate-navigate">
+          <Button className="py-6 px-12 rounded-md ">
+            <GiSoapExperiment className="w-12" />
+            <p className={`font-bold ${heebo.className}  tracking-wide `}>
+              Try Now
+            </p>
+          </Button>
+        </Link>
         <Button className="border border-netural-200 py-6 px-12 bg-white text-black shadow-md hover:bg-white rounded-md">
           <HiUserGroup className="h-12" />
           <p className={`font-bold ${heebo.className}  tracking-wide`}>
