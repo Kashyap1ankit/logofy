@@ -16,6 +16,9 @@ export default function NavItems() {
       try {
         const res = await getUserCredit();
 
+        if (res.message === "Unauthorized user") {
+          return signOut();
+        }
         if (res.status !== 200) throw new Error(res.message);
 
         setCredits(res.credits);

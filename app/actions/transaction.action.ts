@@ -19,7 +19,7 @@ export async function getUserCredit() {
       },
     });
 
-    if (!res) throw new Error("No wallet associated to user");
+    if (!res) throw new Error("Unauthorized user");
 
     return {
       status: 200,
