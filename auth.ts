@@ -12,6 +12,21 @@ const custom: Adapter = {
       data: {
         ...user,
         username: user.email,
+        wallet: {
+          create: [
+            {
+              credit: 1,
+              transactions: {
+                create: [
+                  {
+                    amount: 8,
+                    credit: 1,
+                  },
+                ],
+              },
+            },
+          ],
+        },
       },
     });
     return newUser;

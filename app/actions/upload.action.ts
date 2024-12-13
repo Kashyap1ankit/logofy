@@ -5,13 +5,22 @@ import {
   generateVideoType,
 } from "@/lib/validators/generate.validator";
 
-import { Cloudinary } from "@/lib/config";
+import { Cloudinary, CREDITS_PER_REQUEST_REQUIRED } from "@/lib/config";
 import streamifier from "streamifier";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { getUserCredit } from "./transaction.action";
 
 export async function UploadVideoAction(data: generateVideoType) {
   try {
+    const res = await getUserCredit();
+    console.log("res", res);
+
+    if (res.status !== 200) throw new Error(res.message);
+
+    if (res.credits === 0 || res.credits < CREDITS_PER_REQUEST_REQUIRED)
+      throw new Error("Not Enough credits");
+
     const { success } = generateVideoSchema.safeParse(data);
 
     if (!success) throw new Error("Validation failed");

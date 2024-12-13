@@ -56,7 +56,7 @@ export default function SignInComp() {
 
   return (
     <div className="w-full h-full flex justify-center items-center min-h-screen bg-white/50 backdrop-blur-xl">
-      <div className="bg-[#f7f7f7]  md:max-w-md md:min-w-[520px] h-fit border border-neutral-200 rounded-xl shadow-xl ">
+      <div className="bg-[#f7f7f7]  w-11/12 mt-4  md:max-w-md md:min-w-[520px] h-fit border border-neutral-200 rounded-xl shadow-xl ">
         <div className="flex flex-col gap-8 bg-white p-8 rounded-xl">
           <div>
             <h1

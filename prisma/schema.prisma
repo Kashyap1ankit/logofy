@@ -17,6 +17,7 @@ model User {
   password      String?
   accounts      Account[]
   history       History[]
+  wallet        Wallet[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -53,3 +54,23 @@ model Account {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
  }
+
+
+model Wallet {
+  id           String  @id @default(uuid())
+  credit       Int     @default(1)
+  userId       String
+  user         User    @relation(fields: [userId],references: [id],onDelete: Cascade)
+  transactions  Transaction[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Transaction {
+  id        String @id @default(uuid())
+  amount    Int 
+  credit    Int
+  walletId  String
+  wallet    Wallet @relation(fields: [walletId],references: [id],onDelete: Cascade)
+}

@@ -1,18 +1,41 @@
 "use client";
+import { getUserCredit } from "@/app/actions/transaction.action";
 import { heebo } from "@/app/fonts/font";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
+import { FaCoins } from "react-icons/fa6";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function NavItems() {
   const session = useSession();
+  const [credits, setCredits] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const res = await getUserCredit();
+
+        if (res.status !== 200) throw new Error(res.message);
+
+        setCredits(res.credits);
+      } catch {
+        setCredits(null);
+      }
+    };
+
+    fetchBalance();
+  }, []);
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-4  ">
+    <div className="flex flex-col md:flex-row items-center gap-8  ">
       {session.status === "authenticated" ? (
         <>
-          <User className="bg-gradient-to-b from-[#764BA2] to-[#667EEA] text-white size-10 p-2 shadow-md  h-fit rounded-full cursor-pointer" />
+          <div className="flex gap-2 items-center">
+            <FaCoins className="fill-yellow-600" />
+            <p>{credits}</p>
+          </div>
+          {/* <User className="bg-gradient-to-b from-[#764BA2] to-[#667EEA] text-white size-10 p-2 shadow-md  h-fit rounded-full w-full cursor-pointer" /> */}
           <Button
             variant={"default"}
             className=" w-full shadow-md "
@@ -25,7 +48,7 @@ export default function NavItems() {
         </>
       ) : (
         <>
-          <Link href={"/signup"}>
+          <Link href={"/signup"} className="w-full">
             <Button
               variant={"default"}
               className=" w-full hover:bg-white bg-white text-black shadow-md border"
@@ -35,7 +58,7 @@ export default function NavItems() {
               </p>
             </Button>
           </Link>
-          <Link href={"/signin"}>
+          <Link href={"/signin"} className="w-full">
             <Button variant={"default"} className=" w-full shadow-md ">
               <p className={`font-bold ${heebo.className}  tracking-wide  `}>
                 Login

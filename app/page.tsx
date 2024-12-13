@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <AuroraBackground className="py-20">
+      <AuroraBackground className="pt-20">
         <div className="z-10">
           <HeroSection />
           <HowItWorks />

@@ -43,22 +43,24 @@ export default function Faq() {
         }}
         viewport={{ once: true }}
       >
-        <p className={`${roboto.className} text-5xl text-black text-center`}>
+        <p
+          className={`${roboto.className} text-2xl md:text-5xl text-black text-center`}
+        >
           Frequently asked questions
         </p>
-        <p className="text-center text-sm  text-gray-400">
+        <p className="text-center text-sm px-4 text-gray-400">
           These are the most commonly asked questions about Untitled UI
         </p>
 
-        <div className=" grid grid-cols-1 sm:grid-cols-2 mt-8 gap-8  ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 mt-8 gap-12 px-4 md:px-0 ">
           {FaqData.map((e, i) => {
             const Icon = iconsArray[i];
             return (
-              <div className="flex gap-4 " key={i}>
-                <Icon className="size-10 text-black bg-violet-200 p-2 rounded-md text-purple-900" />
+              <div className="flex gap-4 items-start " key={i}>
+                <Icon className="size-12 h-fit text-black bg-violet-200 p-2 rounded-md text-purple-900" />
                 <div>
                   <p className="text-xl text-bold text-black">{e.question}</p>
-                  <p className="text-sm w-3/4">{e.answer}</p>
+                  <p className="text-sm w-full md:w-3/4 ">{e.answer}</p>
                 </div>
               </div>
             );

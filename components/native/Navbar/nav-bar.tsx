@@ -58,7 +58,7 @@ export default function Navbar() {
           <DialogTrigger>
             <Tally3 className="rotate-90" />
           </DialogTrigger>
-          <DialogContent className="fixed top-24 rounded-md max-w-[300px]">
+          <DialogContent className="fixed top-24 rounded-md max-w-[300px] md:hidden ">
             <DialogTitle></DialogTitle>
             <DialogHeader className="mt-4">
               <DialogDescription>

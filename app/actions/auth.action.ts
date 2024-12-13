@@ -33,6 +33,22 @@ export async function SignupAction(formData: signupType) {
         username: formData.username,
         email: formData.email,
         password: hashedPassword,
+        name: formData.name,
+        wallet: {
+          create: [
+            {
+              credit: 1,
+              transactions: {
+                create: [
+                  {
+                    amount: 8,
+                    credit: 1,
+                  },
+                ],
+              },
+            },
+          ],
+        },
       },
     });
 

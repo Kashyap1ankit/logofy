@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className=" max-w-screen">
         <SessionProvider>
           <Toaster position="bottom-right" reverseOrder={true} />
           {children}
