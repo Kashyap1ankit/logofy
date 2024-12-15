@@ -7,6 +7,7 @@ import { heebo } from "@/app/fonts/font";
 import { HiUserGroup } from "react-icons/hi2";
 import { GiSoapExperiment } from "react-icons/gi";
 import Link from "next/link";
+import Balancer from "react-wrap-balancer";
 
 export function HeroSection() {
   return (
@@ -15,14 +16,14 @@ export function HeroSection() {
         Highly Accurate results ✨ &rarr;
       </div>
 
-      <motion.p
+      <Balancer
         className={`${GeistSans.className} px-4 md:px-0 text-center text-4xl sm:text-5xl md:text-6xl xl:text-8xl font-bold`}
       >
-        The AI POWERED VIDEO BACKGROUND{" "}
+        THE AI POWERED SVG {""}
         <span className="bg-gradient-to-r from-[#764BA2] to-[#667EEA] rounded-md text-center text-white">
-          REMOVER
+          GENERATOR
         </span>
-      </motion.p>
+      </Balancer>
       <motion.p
         className={`${GeistSans.className}  text-center text-sm sm:text-md text-2xl font-bold text-gray-500 sm:w-3/4 md:w-1/2 px-4 md:px-0`}
         animate={{
@@ -34,8 +35,8 @@ export function HeroSection() {
           },
         }}
       >
-        Your Shortcut to Professional Video Backdrops. Get the foreground of the
-        video ready to use in few minutes
+        Your Shortcut to Professional SVG Designs. Create Stunning Graphics in
+        Just Minutes. Transform Ideas into Stunning SVG Designs Instantly
       </motion.p>
 
       <div className="flex flex-col sm:flex-row   gap-8 sm:mt-12 ">
