@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { SessionProvider } from "next-auth/react";
+import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
   title: "Greenify",
@@ -17,10 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className=" max-w-screen">
-        <SessionProvider>
+        <Providers>
           <Toaster position="bottom-right" reverseOrder={true} />
           {children}
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

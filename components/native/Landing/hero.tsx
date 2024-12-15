@@ -17,7 +17,7 @@ export function HeroSection() {
       </div>
 
       <Balancer
-        className={`${GeistSans.className} px-4 md:px-0 text-center text-4xl sm:text-5xl md:text-6xl xl:text-8xl font-bold`}
+        className={`${GeistSans.className} text-white px-4 md:px-0 text-center text-4xl sm:text-5xl md:text-6xl xl:text-8xl font-bold`}
       >
         THE AI POWERED SVG {""}
         <span className="bg-gradient-to-r from-[#764BA2] to-[#667EEA] rounded-md text-center text-white">

@@ -11,3 +11,7 @@ body {
     --radius: 0.5rem;
   }
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
