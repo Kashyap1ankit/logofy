@@ -59,7 +59,7 @@ export async function UploadVideoAction(data: generateVideoType) {
 
     await prisma.history.create({
       data: {
-        original: uploadedVideoUrl.secure_url,
+        prompt: uploadedVideoUrl.secure_url,
         userId: session?.user.id,
       },
     });
