@@ -1,2 +1,4 @@
 -- AlterTable
-ALTER TABLE "History" ALTER COLUMN "prompt" DROP NOT NULL;
+ALTER TABLE "History" DROP COLUMN "original",
+ADD COLUMN     "prompt" TEXT ;
+
