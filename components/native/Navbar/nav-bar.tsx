@@ -31,21 +31,21 @@ export default function Navbar() {
 
   return (
     <div
-      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50 bg-smoke-100  shadow-sm duration-500 backdrop-blur-xl bg-white/50`}
+      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50  shadow-sm duration-500 bg-secondary-black border-b border-neutral-700 backdrop-blur-xl `}
     >
       <Link href={"/"} className="flex gap-2 items-center" aria-label="logo">
         <Image
-          src={"/greenify.png"}
+          src={"/logofy.png"}
           width={500}
           height={500}
-          className="w-8 rounded-sm"
+          className="w-10 h-10 rounded-full"
           alt="logo"
           aria-label="logo"
         />
         <p
-          className={`text-3xl font-bold ${heebo.className} text-[#285040] tracking-wide`}
+          className={`text-3xl font-bold ${heebo.className} text-white tracking-wide`}
         >
-          Greenify
+          Logofy
         </p>
       </Link>
 
@@ -56,7 +56,7 @@ export default function Navbar() {
       <div className="block md:hidden">
         <Dialog>
           <DialogTrigger>
-            <Tally3 className="rotate-90" />
+            <Tally3 className="rotate-90 invert" />
           </DialogTrigger>
           <DialogContent className="fixed top-24 rounded-md max-w-[300px] md:hidden ">
             <DialogTitle></DialogTitle>

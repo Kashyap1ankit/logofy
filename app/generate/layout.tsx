@@ -13,9 +13,9 @@ export default function GenerateLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="bg-primary-black">
       <Navbar />
       {children}
-    </>
+    </div>
   );
 }

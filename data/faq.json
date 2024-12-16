@@ -4,36 +4,36 @@
     "answer": "Click on the 'Sign Up' button, fill in the required details, and verify your email to activate your account."
   },
   {
-    "question": "What formats are supported for video uploads?",
-    "answer": "We support popular formats such as MP4, AVI, MOV, and MKV. Ensure your file size is within the specified limit."
+    "question": "What inputs are supported for SVG generation?",
+    "answer": "You can input text descriptions or keywords, and our platform will generate high-quality SVGs based on your input."
   },
   {
     "question": "How can I add credits to my account?",
     "answer": "Log in, navigate to the 'Add Credits' section, select a payment method, and complete the transaction to top up your account."
   },
   {
-    "question": "What is the turnaround time for background removal?",
-    "answer": "The process is typically completed within seconds, depending on the video size and complexity of the background."
+    "question": "How long does it take to generate an SVG?",
+    "answer": "The process is typically completed within seconds, depending on the complexity of the input."
   },
   {
     "question": "Can I use the service for free?",
-    "answer": "Yes, limited features are available for free. To access premium services, you'll need to add credits to your account."
+    "answer": "Yes, limited features are available for free. To access advanced customization and premium options, you'll need to add credits to your account."
   },
   {
     "question": "Is my data secure on your platform?",
     "answer": "Absolutely. We use advanced encryption and security protocols to ensure your data is safe and confidential."
   },
   {
-    "question": "Can I download videos in high quality after background removal?",
-    "answer": "Yes, you can download videos in the original quality or select a preferred resolution based on your needs."
+    "question": "Can I download SVGs in different resolutions or formats?",
+    "answer": "Yes, you can download SVGs in high resolution or export them to other formats like PNG or JPG."
   },
   {
-    "question": "What should I do if my video fails to process?",
-    "answer": "Ensure your video meets the format and size requirements. If the issue persists, contact our support team for assistance."
+    "question": "What should I do if the SVG doesn't match my input?",
+    "answer": "Ensure your input is clear and descriptive. If the issue persists, try rephrasing your input or contact our support team."
   },
   {
-    "question": "Are there any restrictions on video length?",
-    "answer": "Yes, free accounts have a 5-minute video length limit. Premium users can upload videos up to 30 minutes long."
+    "question": "Are there any restrictions on the input description length?",
+    "answer": "Yes, inputs are limited to 200 characters to ensure optimal results. For more complex designs, use concise descriptions."
   },
   {
     "question": "How do I contact customer support?",

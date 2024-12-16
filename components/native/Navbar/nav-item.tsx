@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { FaCoins } from "react-icons/fa6";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useCredits } from "@/lib/hooks/hooks";
 
 export default function NavItems() {
   const session = useSession();
-  const [credits, setCredits] = useState<number | null>(null);
+  const credits = useCredits((state) => state.credits);
+  const setCredits = useCredits((state) => state.setCredits);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -36,7 +38,7 @@ export default function NavItems() {
         <>
           <div className="flex gap-2 items-center">
             <FaCoins className="fill-yellow-600" />
-            <p>{credits}</p>
+            <p className="text-white">{credits}</p>
           </div>
           {/* <User className="bg-gradient-to-b from-[#764BA2] to-[#667EEA] text-white size-10 p-2 shadow-md  h-fit rounded-full w-full cursor-pointer" /> */}
           <Button

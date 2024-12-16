@@ -20,6 +20,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        "primary-black": "#141315",
+        "secondary-black": "#222124",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

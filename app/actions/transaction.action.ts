@@ -15,6 +15,7 @@ export async function getUserCredit() {
       },
 
       select: {
+        id: true,
         credit: true,
       },
     });
@@ -25,12 +26,47 @@ export async function getUserCredit() {
       status: 200,
       message: "Fetched balance",
       credits: res.credit,
+      id: res.id,
     };
   } catch (error) {
     return {
       status: 400,
       message: (error as Error).message,
       credits: 0,
+      id: null,
+    };
+  }
+}
+
+export async function deductCredits() {
+  try {
+    const response = await getUserCredit();
+
+    if (response.status !== 200 || !response.id)
+      throw new Error(response.message);
+
+    const upadatedWallet = await prisma.wallet.update({
+      where: {
+        id: response.id,
+        userId: response.id,
+      },
+      data: {
+        credit: response.credits - 1,
+      },
+      select: {
+        credit: true,
+      },
+    });
+    return {
+      status: 200,
+      message: "Wallet updated",
+      credits: upadatedWallet.credit,
+    };
+  } catch (error) {
+    return {
+      status: 400,
+      message: (error as Error).message,
+      credits: null,
     };
   }
 }

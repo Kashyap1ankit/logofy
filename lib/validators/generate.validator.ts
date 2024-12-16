@@ -1,5 +1,13 @@
 import z from "zod";
 
+export const style = [
+  "any",
+  "engraving",
+  "line_art",
+  "line_circuit",
+  "linocut",
+] as const;
+
 export const generateVideoSchema = z.object({
   file: z
     .any()
@@ -30,3 +38,13 @@ export const generateVideoSchema = z.object({
 });
 
 export type generateVideoType = z.infer<typeof generateVideoSchema>;
+
+export const generateImageInputSchema = z.object({
+  prompt: z
+    .string({ message: "Prompt is required" })
+    .min(10, { message: "Make prompt little longer" }),
+
+  style: z.enum(style, { message: "Invalid type" }),
+});
+
+export type generateImageInputType = z.infer<typeof generateImageInputSchema>;

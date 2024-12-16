@@ -5,15 +5,20 @@ import { Cloudinary } from "@/lib/config";
 import { Readable } from "stream";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import {
+  generateImageInputSchema,
+  generateImageInputType,
+} from "@/lib/validators/generate.validator";
+import { getUserCredit } from "./transaction.action";
 
 //eslint-disable-next-line
 async function uploadTo(readableStream: any, url: string) {
   try {
-    const uploadVideoToCloud = new Promise((resolve, reject) => {
+    const uploadToCloud = new Promise((resolve, reject) => {
       const uploadStream = Cloudinary.uploader.upload_stream(
         {
           folder: "greenify",
-          resource_type: "video",
+          resource_type: "image",
           use_filename: true,
         },
         (error, result) => {
@@ -25,25 +30,14 @@ async function uploadTo(readableStream: any, url: string) {
       // Pipe the ReadableStream to the Cloudinary upload stream
       Readable.from(readableStream).pipe(uploadStream);
     });
-    const uploadedVideoUrl: any = await uploadVideoToCloud; //eslint-disable-line
+    const uploadedVideoUrl: any = await uploadToCloud; //eslint-disable-line
 
     const session = await auth();
 
-    const user = await prisma.history.findFirst({
-      where: {
-        userId: session?.user.id,
-        original: url,
-      },
-    });
-
-    if (!user) throw new Error("No history found");
-
-    await prisma.history.update({
-      where: {
-        id: user.id,
-      },
-
+    await prisma.history.create({
       data: {
+        userId: session?.user.id,
+        prompt: url,
         final: uploadedVideoUrl.secure_url,
       },
     });
@@ -62,23 +56,26 @@ async function uploadTo(readableStream: any, url: string) {
   }
 }
 
-export async function GenerateVideo(url: string) {
+export async function GenerateLogo(data: generateImageInputType) {
   try {
-    if (!url) throw new Error("File not found in db");
+    const response = await getUserCredit();
 
-    const output = await replicate.run(
-      "arielreplicate/robust_video_matting:73d2128a371922d5d1abf0712a1d974be0e4e2358cc1218e4e34714767232bac",
-      {
-        input: {
-          input_video: url,
-          output_type: "green-screen",
-        },
-      },
-    );
+    if (response.credits < 1) throw new Error("Credits not available");
+    const { success } = generateImageInputSchema.safeParse(data);
+
+    if (!success) throw new Error("Schema validation failed");
+
+    const input = {
+      size: "1024x1024",
+      style: data.style,
+      prompt: `Create a high-quality, visually balanced SVG illustration of ${data.prompt}. Use clean, smooth lines, and ensure the design is professional, modern, and aesthetically pleasing. Include subtle details and textures to make the SVG engaging, while maintaining simplicity and clarity. Use a harmonious color palette that complements the subject and ensures eye-soothing visuals suitable for diverse applications.`,
+    };
+
+    const output = await replicate.run("recraft-ai/recraft-v3-svg", { input });
 
     if (!output) throw new Error("Error while comvering the video");
 
-    const res = await uploadTo(output, url);
+    const res = await uploadTo(output, data.prompt);
 
     if (res.status !== 200) throw new Error(res.message);
 
