@@ -9,6 +9,7 @@ import {
   generateImageInputSchema,
   generateImageInputType,
 } from "@/lib/validators/generate.validator";
+import { getUserCredit } from "./transaction.action";
 
 //eslint-disable-next-line
 async function uploadTo(readableStream: any, url: string) {
@@ -36,7 +37,7 @@ async function uploadTo(readableStream: any, url: string) {
     await prisma.history.create({
       data: {
         userId: session?.user.id,
-        original: url,
+        prompt: url,
         final: uploadedVideoUrl.secure_url,
       },
     });
@@ -57,6 +58,9 @@ async function uploadTo(readableStream: any, url: string) {
 
 export async function GenerateLogo(data: generateImageInputType) {
   try {
+    const response = await getUserCredit();
+
+    if (response.credits < 1) throw new Error("Credits not available");
     const { success } = generateImageInputSchema.safeParse(data);
 
     if (!success) throw new Error("Schema validation failed");
@@ -68,8 +72,6 @@ export async function GenerateLogo(data: generateImageInputType) {
     };
 
     const output = await replicate.run("recraft-ai/recraft-v3-svg", { input });
-
-    console.log("outpt hai", output);
 
     if (!output) throw new Error("Error while comvering the video");
 

@@ -17,6 +17,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { GenerateLogo } from "@/app/actions/generate.action";
+import {
+  useCredits,
+  useFinalOutputUrl,
+  useGenerateLoader,
+} from "@/lib/hooks/hooks";
+import { errorToast, successToast } from "../toast";
+import { deductCredits } from "@/app/actions/transaction.action";
 
 export default function PromptPage({ className }: { className?: string }) {
   const {
@@ -29,14 +36,25 @@ export default function PromptPage({ className }: { className?: string }) {
     resolver: zodResolver(generateImageInputSchema),
   });
 
+  const toggleLoadingState = useGenerateLoader((state) => state.toggleState);
+  const setFinalImageUrl = useFinalOutputUrl((state) => state.setState);
+  const loading = useGenerateLoader((state) => state.loading);
+  const setCredits = useCredits((state) => state.setCredits);
+
   async function handleImageGenerate(data: generateImageInputType) {
     try {
+      toggleLoadingState(true);
       const response = await GenerateLogo(data);
       if (response.status !== 200) throw new Error(response.message);
+      const res = await deductCredits();
+      setCredits(res.credits);
+      successToast("Successfully generated");
+      setFinalImageUrl(response.output);
     } catch (error) {
-      console.log(error);
+      errorToast((error as Error).message);
     } finally {
       reset();
+      toggleLoadingState(false);
     }
   }
   return (
@@ -50,7 +68,7 @@ export default function PromptPage({ className }: { className?: string }) {
             Prompt <span className="text-red-500">*</span>
           </label>
           <textarea
-            className="p-2 rounded-md border outline-0 resize-none no-scrollbar  w-[500px] h-32 bg-secondary-black border-neutral-700 text-white "
+            className="p-2 rounded-md border outline-0 resize-none no-scrollbar   h-32 bg-secondary-black border-neutral-700 text-white "
             id="prompt"
             {...register("prompt")}
           />
@@ -79,7 +97,7 @@ export default function PromptPage({ className }: { className?: string }) {
             ) => setValue("style", value)}
           >
             <SelectTrigger className="bg-secondary-black text-white border-0">
-              <SelectValue placeholder="Select a verified email to display" />
+              <SelectValue placeholder="Select the style you want" />
             </SelectTrigger>
 
             <SelectContent className="bg-primary-black text-white border border-neutral-700">
@@ -100,7 +118,8 @@ export default function PromptPage({ className }: { className?: string }) {
 
         <div className="flex justify-end">
           <Button
-            className={`${lato.className} bg-violet-600  hover:bg-violet-600 rounded-sm p-2 min-w-20 font-bold w-fit `}
+            className={`${lato.className} bg-violet-600  hover:bg-violet-600 rounded-sm p-2 min-w-20 font-bold w-full lg:w-fit `}
+            disabled={loading}
           >
             <p>Run</p>
             <CornerDownLeft />
