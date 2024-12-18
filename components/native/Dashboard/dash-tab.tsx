@@ -49,7 +49,7 @@ export default function DashBoardTable() {
   return (
     <div>
       {userData ? (
-        <Table className="mx-auto mt-12 rounded-md max-w-5xl bg-[#0E1728] ">
+        <Table className="mx-auto mt-12 rounded-md w-11/12 md:max-w-5xl bg-[#0E1728] ">
           <TableCaption>A list of your recent runs.</TableCaption>
           <TableHeader>
             <TableRow className="bg-[#374151] hover:bg-[#374151] rounded-md text-md font-bold">
