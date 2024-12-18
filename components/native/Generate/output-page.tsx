@@ -8,6 +8,7 @@ import { Download, Share } from "lucide-react";
 import { roboto } from "@/app/fonts/font";
 import { useFinalOutputUrl, useGenerateLoader } from "@/lib/hooks/hooks";
 import { ScaleLoader } from "react-spinners";
+import { handleImageDownload } from "@/lib/helpers";
 
 export default function OutputPage({ className }: { className?: string }) {
   const words = [
@@ -19,21 +20,6 @@ export default function OutputPage({ className }: { className?: string }) {
   const finalOtptUrl = useFinalOutputUrl((state) => state.url);
   const loading = useGenerateLoader((state) => state.loading);
 
-  async function handleImageDownload(url: string) {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      alert("Failed to download file");
-      return;
-    }
-    const blob = await response.blob();
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = url.slice(-10);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  }
   return (
     <div className={cn(className, "flex flex-col gap-6")}>
       <div>

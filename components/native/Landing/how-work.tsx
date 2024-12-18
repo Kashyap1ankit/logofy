@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { heebo, lato, roboto } from "@/app/fonts/font";
+import { heebo, lato } from "@/app/fonts/font";
 import { User, IndianRupee, Video, Clapperboard } from "lucide-react";
 import JsonData from "@/data/how-it-works.json";
 
@@ -13,7 +13,7 @@ export default function HowItWorks() {
   const iconsArray = [User, IndianRupee, Video, Clapperboard];
   return (
     <motion.div
-      className=" flex flex-col items-center lg:flex-row justify-between gap-4  bg-slate-100 border-t-2 border-gray-100 p-12 mx-auto"
+      className=" gap-4 p-4 md:p-24 mt-12 "
       initial={{ opacity: 0, y: 100 }}
       whileInView={{
         opacity: 1,
@@ -24,31 +24,30 @@ export default function HowItWorks() {
       }}
       viewport={{ once: true }}
     >
-      <div className="flex flex-col gap-4 justify-center items-center  md:w-1/2">
-        <p
-          className={`${roboto.className} text-3xl md:text-5xl text-blue-700 font-bold`}
-        >
-          How it works ?
-        </p>
-        <p className="lg:w-1/2 text-center text-gray-400 font-bold">
-          Understand our process in simple steps. Learn how to use our platform
-          effortlessly to achieve your goals with clear and concise guidance
-        </p>
-      </div>
+      <p
+        className={`${heebo.className} text-3xl sm:text-4xl md:text-5xl text-blue-400 font-bold text-center`}
+      >
+        Redefining Logo Generation
+      </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8  lg:w-1/2">
+      <p className="mt-6 text-sm md:text-md text-center text-gray-400 font-bold">
+        Understand our process in simple steps. Learn how to use our platform
+        effortlessly to achieve your goals with clear and concise guidance
+      </p>
+
+      <div className="flex flex-wrap justify-center gap-8 mt-20 md:px-12">
         {JsonData.map((e: JsonDataType, i: number) => {
           const Icon = iconsArray[i];
           return (
             <div
-              className="flex flex-col gap-4 shadow-md rounded-xl p-4 w-full md:max-w-xl bg-white hover:bg-slate-100 duration-500 cursor-pointer"
+              className="flex flex-col items-center gap-4 shadow-md rounded-xl p-12 w-full max-w-sm bg-[#121212] border border-neutral-700  duration-500 cursor-pointer"
               key={i}
             >
-              <Icon className="text-blue-700" />
-              <p className={`${heebo.className} text-xl font-bold`}>
+              <Icon className="text-blue-700 size-16" />
+              <p className={`${heebo.className} text-xl font-bold text-white`}>
                 {e.title}
               </p>
-              <p className={`${lato.className} text-gray-400`}>
+              <p className={`${lato.className} text-gray-400 text-center`}>
                 {e.description}
               </p>
             </div>

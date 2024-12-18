@@ -46,8 +46,8 @@ model Account {
 
  model History {
   id        String @id @default(uuid())
-  prompt    String?    @default("")
-  final     String?
+  prompt    String    @default("")
+  final     String
   userId    String
   user      User  @relation(fields: [userId],references: [id],onDelete: Cascade)
 
