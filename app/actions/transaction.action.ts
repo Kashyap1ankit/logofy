@@ -48,7 +48,6 @@ export async function deductCredits() {
     const upadatedWallet = await prisma.wallet.update({
       where: {
         id: response.id,
-        userId: response.id,
       },
       data: {
         credit: response.credits - 1,
@@ -67,6 +66,42 @@ export async function deductCredits() {
       status: 400,
       message: (error as Error).message,
       credits: null,
+    };
+  }
+}
+
+//get back all the runs of the user
+
+export async function getUserHistory() {
+  try {
+    const session = await auth();
+
+    if (!session) throw new Error("User not loggedIn");
+
+    const response = await prisma.history.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      select: {
+        id: true,
+        prompt: true,
+        final: true,
+        createdAt: true,
+      },
+    });
+
+    if (!response || response.length <= 0) throw new Error("No Data Exist");
+
+    return {
+      status: 200,
+      message: "Successfully fetched",
+      data: response,
+    };
+  } catch (error) {
+    return {
+      status: 400,
+      message: (error as Error).message,
+      data: null,
     };
   }
 }

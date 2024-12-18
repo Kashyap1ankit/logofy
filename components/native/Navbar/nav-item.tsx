@@ -40,13 +40,13 @@ export default function NavItems() {
             <FaCoins className="fill-yellow-600" />
             <p className="text-white">{credits}</p>
           </div>
-          {/* <User className="bg-gradient-to-b from-[#764BA2] to-[#667EEA] text-white size-10 p-2 shadow-md  h-fit rounded-full w-full cursor-pointer" /> */}
+
           <Button
             variant={"default"}
-            className=" w-full shadow-md "
+            className=" w-full shadow-md bg-gradient-to-r from-indigo-900 to-indigo-950 "
             onClick={() => signOut()}
           >
-            <p className={`font-bold ${heebo.className}  tracking-wide  `}>
+            <p className={`font-bold ${heebo.className}  tracking-wide   `}>
               Logout
             </p>
           </Button>
@@ -64,7 +64,10 @@ export default function NavItems() {
             </Button>
           </Link>
           <Link href={"/signin"} className="w-full">
-            <Button variant={"default"} className=" w-full shadow-md ">
+            <Button
+              variant={"default"}
+              className=" w-full shadow-md bg-gradient-to-r from-indigo-900 to-indigo-950 "
+            >
               <p className={`font-bold ${heebo.className}  tracking-wide  `}>
                 Login
               </p>

@@ -60,12 +60,12 @@ export default function SignUpComp() {
   }
 
   return (
-    <div className="w-full h-full flex justify-center items-center min-h-screen bg-white/50 backdrop-blur-xl">
-      <div className="bg-[#f7f7f7] w-11/12 mt-4  md:min-w-[520px]  md:max-w-md  h-fit border border-neutral-200 rounded-xl shadow-xl ">
-        <div className="flex flex-col gap-8 bg-white p-8 rounded-xl">
+    <div className="w-full h-full flex justify-center items-center min-h-screen bg-[#121212] backdrop-blur-xl">
+      <div className="bg-[#121212] w-11/12 mt-4  md:min-w-[520px]  md:max-w-md  h-fit border border-neutral-800 rounded-xl shadow-xl shadow-black ">
+        <div className="flex flex-col gap-8 p-8 rounded-xl bg-black">
           <div>
             <h1
-              className={`${heebo.className} text-2xl font-bold  text-center `}
+              className={`${heebo.className} text-2xl font-bold  text-center text-white`}
             >
               Create your Account
             </h1>
@@ -99,17 +99,17 @@ export default function SignUpComp() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel
-                        className={`${roboto.className} tracking-wider`}
+                        className={`${roboto.className} tracking-wider text-gray-300`}
                       >
                         Display Name
                       </FormLabel>
                       <FormControl>
-                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                        <div className="flex  items-center shadow-sm border border-neutral-700  rounded-lg px-2">
                           <UserPen className="fill-gray-400 size-4 text-gray-400" />
                           <Input
                             placeholder="Vyrat Kohli"
                             {...field}
-                            className="outline-0 border-none focus-none shadow-none"
+                            className="outline-0 border-none focus-none shadow-none text-white"
                           />
                         </div>
                       </FormControl>
@@ -124,17 +124,17 @@ export default function SignUpComp() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel
-                        className={`${roboto.className} tracking-wider`}
+                        className={`${roboto.className} tracking-wider text-gray-300`}
                       >
                         Username
                       </FormLabel>
                       <FormControl>
-                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                        <div className="flex  items-center shadow-sm border border-neutral-700  rounded-lg px-2">
                           <FaAt className="size-4 text-gray-400" />
                           <Input
                             placeholder="greenify_123"
                             {...field}
-                            className="outline-0 border-none focus-none shadow-none"
+                            className="outline-0 border-none focus-none shadow-none text-white"
                           />
                         </div>
                       </FormControl>
@@ -149,17 +149,17 @@ export default function SignUpComp() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel
-                        className={`${roboto.className} tracking-wider`}
+                        className={`${roboto.className} tracking-wider text-gray-300`}
                       >
                         Email
                       </FormLabel>
                       <FormControl>
-                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                        <div className="flex  items-center shadow-sm border border-neutral-700  rounded-lg px-2">
                           <IoIosMailUnread className="size-6 text-gray-400" />
                           <Input
                             placeholder="virat@greenify.com"
                             {...field}
-                            className="outline-0 border-none focus-none shadow-none"
+                            className="outline-0 border-none focus-none shadow-none text-white"
                           />
                         </div>
                       </FormControl>
@@ -174,17 +174,17 @@ export default function SignUpComp() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel
-                        className={`${roboto.className} tracking-wider`}
+                        className={`${roboto.className} tracking-wider text-gray-300`}
                       >
                         Password
                       </FormLabel>
                       <FormControl>
-                        <div className="flex  items-center shadow-sm border border-neutral-200  rounded-lg px-2">
+                        <div className="flex  items-center shadow-sm border border-neutral-700  rounded-lg px-2">
                           <FaLock className="size-4 text-gray-400" />
                           <Input
                             placeholder="Hello@1"
                             {...field}
-                            className="outline-0 border-none focus-none shadow-none"
+                            className="outline-0 border-none focus-none shadow-none text-white"
                             type={passwordVisible ? "text" : "password"}
                           />
                           {passwordVisible ? (

@@ -1,19 +1,10 @@
+import {
+  creditsType,
+  finalOutputUrlType,
+  generateLoaderType,
+  userHistoryType,
+} from "@/types/hooks.type";
 import { create } from "zustand";
-
-type generateLoaderType = {
-  toggleState: (loading: boolean) => void;
-  loading: boolean;
-};
-
-type finalOutputUrlType = {
-  url: null | string;
-  setState: (url: string) => void;
-};
-
-type creditsType = {
-  credits: null | number;
-  setCredits: (credit: number | null) => void;
-};
 
 //Loader for showing generation
 
@@ -37,4 +28,9 @@ export const useCredits = create<creditsType>((set) => ({
     set(() => ({
       credits: credit,
     })),
+}));
+
+export const useUserHistory = create<userHistoryType>((set) => ({
+  data: null,
+  setData: (data) => set(() => ({ data: data })),
 }));
