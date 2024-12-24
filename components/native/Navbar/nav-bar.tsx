@@ -6,9 +6,14 @@ import Link from "next/link";
 import UserProfile from "./user-profile";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { useCredits } from "@/lib/hooks/hooks";
+import { getUserCredit } from "@/app/actions/transaction.action";
+import { FaCoins } from "react-icons/fa";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
+  const credits = useCredits((state) => state.credits);
+  const setCredits = useCredits((state) => state.setCredits);
 
   useEffect(() => {
     function handleScroll() {
@@ -19,6 +24,25 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const res = await getUserCredit();
+
+        if (res.message === "Unauthorized user") {
+          return signOut();
+        }
+        if (res.status !== 200) throw new Error(res.message);
+
+        setCredits(res.credits);
+      } catch {
+        setCredits(null);
+      }
+    };
+
+    fetchBalance();
   }, []);
 
   const session = useSession();
@@ -43,7 +67,7 @@ export default function Navbar() {
         </p>
       </Link>
 
-      <div className="flex justify-between gap-16 items-center">
+      <div className="flex justify-between gap-4 sm:gap-8 md:gap-16 items-center">
         {session.status !== "authenticated" ? (
           <Link href={"/signin"} className="w-full">
             <Button
@@ -57,6 +81,10 @@ export default function Navbar() {
           </Link>
         ) : (
           <>
+            <div className="flex gap-2 items-center">
+              <FaCoins className="fill-yellow-600" />
+              <p className="text-white">{credits}</p>
+            </div>
             <UserProfile />
             <Button
               variant={"default"}
