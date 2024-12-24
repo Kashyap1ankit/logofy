@@ -35,11 +35,11 @@ export default function Navbar() {
 
   return (
     <div
-      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50  shadow-sm duration-500 border-b border-neutral-800 backdrop-blur-xl bg-[#121212] `}
+      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50  shadow-sm duration-500 border-b border-neutral-800 backdrop-blur-xl bg-primary-bg `}
     >
       <Link href={"/"} className="flex gap-2 items-center" aria-label="logo">
         <Image
-          src={"/logofy.png"}
+          src={"/logofy.svg"}
           width={500}
           height={500}
           className="w-10 h-10 rounded-full"
@@ -47,7 +47,7 @@ export default function Navbar() {
           aria-label="logo"
         />
         <p
-          className={`text-2xl font-bold ${lato.className} text-white tracking-wide`}
+          className={`text-2xl font-bold ${lato.className} bg-gradient-to-l from-primary-purple to-tertiary-purple  bg-clip-text text-transparent  tracking-wide`}
         >
           Logofy
         </p>
@@ -65,7 +65,7 @@ export default function Navbar() {
             <DialogTrigger>
               <Tally3 className="rotate-90 invert" />
             </DialogTrigger>
-            <DialogContent className="fixed top-24 rounded-md max-w-[300px] md:hidden ">
+            <DialogContent className="fixed top-24 rounded-md max-w-[300px] md:hidden  bg-primary-bg border border-neutral-700">
               <DialogTitle></DialogTitle>
               <DialogHeader className="mt-4">
                 <DialogDescription>

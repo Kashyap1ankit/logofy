@@ -29,7 +29,7 @@ export default function Faq() {
       >
         Frequently asked questions
       </p>
-      <p className=" mt-2 text-sm md:text-md text-center text-gray-400 font-bold">
+      <p className=" mt-2 text-sm md:text-md text-center text-gray-400 font-bold px-4 md:px-0">
         These are the most commonly asked questions about Untitled UI
       </p>
 
