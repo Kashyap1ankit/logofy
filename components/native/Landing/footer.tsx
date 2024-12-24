@@ -12,7 +12,7 @@ export default function Footer() {
       id="connect"
     >
       <p
-        className={`text-3xl md:text-4xl font-bold ${lato.className} text-white tracking-wide`}
+        className={`text-3xl md:text-4xl font-bold ${lato.className} bg-gradient-to-l from-primary-purple to-tertiary-purple  bg-clip-text text-transparent  tracking-wide`}
       >
         Logofy Inc.
       </p>

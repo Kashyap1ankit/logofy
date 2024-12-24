@@ -13,7 +13,7 @@ export default function HowItWorks() {
   const iconsArray = [User, IndianRupee, Video, Clapperboard];
   return (
     <motion.div
-      className=" gap-4 p-4 md:p-24 mt-12 "
+      className=" gap-4 px-4  md:p-24"
       initial={{ opacity: 0, y: 100 }}
       whileInView={{
         opacity: 1,

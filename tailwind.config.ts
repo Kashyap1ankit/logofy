@@ -21,7 +21,12 @@ export default {
     extend: {
       colors: {
         "primary-black": "#141315",
-        "secondary-black": "#222124",
+        "secondary-black": "#1F2937",
+        "primary-bg": "#111827",
+        "primary-purple": "#CB80EE",
+        "secondary-purple": "#9967EA",
+        "tertiary-purple": "#E377CD",
+        "dark-blue": "#261E44",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
@@ -31,29 +36,25 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       animation: {
-        aurora: "aurora 60s linear infinite",
-        gradientX: "shiftGradient 1s ease infinite",
+        gradient: "shift 3s ease infinite",
+        gallery:
+          "moscroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
-        aurora: {
-          from: {
-            backgroundPosition: "50% 50%, 50% 50%",
-          },
-          to: {
-            backgroundPosition: "350% 50%, 350% 50%",
-          },
-        },
-        shiftGradient: {
+        shift: {
           "0%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
+            backgroundPosition: "0% 100%",
           },
           "100%": {
-            backgroundPosition: "0% 50%",
+            backgroundPosition: "0% 10%",
+          },
+        },
+
+        move: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
           },
         },
         "accordion-down": {

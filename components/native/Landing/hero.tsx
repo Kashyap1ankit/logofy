@@ -11,8 +11,8 @@ import { ChevronRight } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <div className=" overflow-x-hidden flex flex-col gap-8 items-center min-h-screen">
-      <div className="w-fit mb-4 bg-gradient-to-r from-purple-400 via-purple-700 to-purple-900 animate-gradientX px-4 py-2 rounded-full text-white text-sm shadow-sm shadow-purple-700">
+    <div className=" overflow-x-hidden flex flex-col gap-8 items-center ">
+      <div className="w-fit mb-4 bg-gradient-to-r from-purple-400 to-purple-900 animate-gradient px-4 py-2 rounded-full text-white text-sm shadow-sm shadow-purple-700">
         Highly Accurate results ✨ &rarr;
       </div>
 
@@ -20,9 +20,27 @@ export function HeroSection() {
         className={`${GeistSans.className} text-white px-4 md:px-0 text-center text-4xl sm:text-5xl md:text-6xl xl:text-8xl font-bold`}
       >
         THE AI POWERED LOGO {""}
-        <span className="bg-gradient-to-r from-indigo-900 to-indigo-950 px-2 rounded-md text-center text-white">
+        <motion.span
+          className="bg-gradient-to-r via-primary-purple from-tertiary-purple to-seconadry-purple px-2 rounded-md text-center text-white"
+          initial={{
+            backgroundSize: "0%",
+          }}
+          animate={{
+            backgroundSize: "100% ",
+          }}
+          transition={{
+            duration: 2,
+            ease: "linear",
+            delay: 0.4,
+          }}
+          style={{
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left center",
+            display: "inline",
+          }}
+        >
           GENERATOR
-        </span>
+        </motion.span>
       </Balancer>
       <motion.p
         className={`${GeistSans.className}  text-center text-sm sm:text-md text-2xl font-bold text-gray-300 sm:w-3/4 md:w-1/2 px-4 md:px-0`}
@@ -44,9 +62,9 @@ export function HeroSection() {
         aria-label="generate-navigate"
         className="sm:mt-8"
       >
-        <Button className="p-6 rounded-full bg-gradient-to-r from-indigo-900 to-indigo-950  hover:to-indigo-900 hover:from-indigo-950 duration-300 ">
+        <Button className="p-6 rounded-full bg-gradient-to-r from-indigo-900 to-indigo-950   duration-300 ">
           <p className={`font-bold ${heebo.className}  tracking-wide  `}>
-            Signup to try logofy now
+            Try it Now
           </p>
           <ChevronRight />
         </Button>

@@ -4,9 +4,9 @@ import { Toaster } from "react-hot-toast";
 import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
-  title: "Greenify",
-  description: "Get Removed background",
-  icons: "/greenify.png",
+  title: "Logofy",
+  description: "Generate logos for free",
+  icons: "/logofy.svg",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" max-w-screen">
+      <body className=" max-w-screen bg-black">
         <Providers>
           <Toaster position="bottom-right" reverseOrder={true} />
           {children}
