@@ -1,21 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { lato } from "@/app/fonts/font";
-import NavItems from "./nav-item";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Tally3 } from "lucide-react";
+import { heebo, lato } from "@/app/fonts/font";
 import Link from "next/link";
 import UserProfile from "./user-profile";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -54,27 +44,31 @@ export default function Navbar() {
       </Link>
 
       <div className="flex justify-between gap-16 items-center">
-        {session.status !== "authenticated" ? null : <UserProfile />}
-
-        <div className="hidden md:block">
-          <NavItems />
-        </div>
-
-        <div className="block md:hidden">
-          <Dialog>
-            <DialogTrigger>
-              <Tally3 className="rotate-90 invert" />
-            </DialogTrigger>
-            <DialogContent className="fixed top-24 rounded-md max-w-[300px] md:hidden  bg-primary-bg border border-neutral-700">
-              <DialogTitle></DialogTitle>
-              <DialogHeader className="mt-4">
-                <DialogDescription>
-                  <NavItems />
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-        </div>
+        {session.status !== "authenticated" ? (
+          <Link href={"/signin"} className="w-full">
+            <Button
+              variant={"default"}
+              className=" w-full shadow-md bg-gradient-to-r from-indigo-900 to-indigo-950 "
+            >
+              <p className={`font-bold ${heebo.className}  tracking-wide  `}>
+                Login
+              </p>
+            </Button>
+          </Link>
+        ) : (
+          <>
+            <UserProfile />
+            <Button
+              variant={"default"}
+              className=" w-full shadow-md bg-gradient-to-r from-indigo-900 to-indigo-950 "
+              onClick={() => signOut()}
+            >
+              <p className={`font-bold ${heebo.className}  tracking-wide   `}>
+                Logout
+              </p>
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

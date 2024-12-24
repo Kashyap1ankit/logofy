@@ -14,7 +14,6 @@ model User {
   emailVerified DateTime?
   image         String?
   username      String          @unique
-  password      String?
   accounts      Account[]
   history       History[]
   wallet        Wallet[]

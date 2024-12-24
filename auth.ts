@@ -54,35 +54,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
-    async signIn({ user, account }) {
-      //No need to manage the logic for oAuth as adapter handles it
-      if (account?.provider === "credentials") {
-        const userDetails = await prisma.user.findFirst({
-          where: {
-            username: user.username,
-          },
-          select: {
-            password: false,
-            id: true,
-            name: true,
-            email: true,
-            emailVerified: true,
-            image: true,
-            username: true,
-            createdAt: true,
-          },
-        });
-
-        if (!userDetails) return false;
-
-        user.createdAt = userDetails.createdAt;
-        user.image = userDetails.image;
-        user.name = userDetails.name;
-        return true;
-      }
-      return true;
-    },
-
     async jwt({ user, token }) {
       if (user) {
         token.id = user.id;
