@@ -4,7 +4,7 @@ import Image from "next/image";
 import { heebo, lato } from "@/app/fonts/font";
 import Link from "next/link";
 import UserProfile from "./user-profile";
-import { signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useCredits } from "@/lib/hooks/hooks";
 import { getUserCredit } from "@/app/actions/transaction.action";
@@ -43,7 +43,7 @@ export default function Navbar() {
     };
 
     fetchBalance();
-  }, []);
+  }, [setCredits]);
 
   const session = useSession();
 
@@ -68,7 +68,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex justify-between gap-4 sm:gap-8 md:gap-16 items-center">
-        {session.status !== "authenticated" ? (
+        {session.data === null || session.isPending ? (
           <Link href={"/signin"} className="w-full">
             <Button
               variant={"default"}

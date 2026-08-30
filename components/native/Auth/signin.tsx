@@ -2,7 +2,7 @@
 import { heebo, roboto } from "@/app/fonts/font";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn } from "@/lib/auth-client";
 
 export default function SignInComp() {
   return (
@@ -22,7 +22,9 @@ export default function SignInComp() {
 
           <div
             className="py-2 px-4 flex items-center gap-2 border-2 rounded-lg justify-center bg-white shadow-sm cursor-pointer"
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() =>
+              signIn.social({ provider: "google", callbackURL: "/" })
+            }
           >
             <FcGoogle className="size-6" />
             <p className={`${roboto.className} font-bold`}>Google</p>

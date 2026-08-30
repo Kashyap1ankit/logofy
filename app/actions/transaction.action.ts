@@ -1,11 +1,12 @@
 "use server";
+import { headers } from "next/headers";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function getUserCredit() {
   try {
-    const session = await auth();
+    const session = await auth.api.getSession({ headers: await headers() });
 
     if (!session) throw new Error("User not loggedIn");
 
@@ -74,7 +75,7 @@ export async function deductCredits() {
 
 export async function getUserHistory() {
   try {
-    const session = await auth();
+    const session = await auth.api.getSession({ headers: await headers() });
 
     if (!session) throw new Error("User not loggedIn");
 
