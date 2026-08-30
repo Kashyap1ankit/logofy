@@ -43,7 +43,7 @@ export default function Navbar() {
     };
 
     fetchBalance();
-  }, []);
+  }, [setCredits]);
 
   const session = useSession();
 

@@ -37,7 +37,7 @@ export default function DashBoardTable() {
     };
 
     getData();
-  }, []);
+  }, [setUserData]);
 
   if (loading) {
     return (

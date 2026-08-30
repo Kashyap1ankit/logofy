@@ -4,6 +4,10 @@ import { prisma } from "./lib/prisma";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
+  trustHost: true,
+  accountLinking: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -23,6 +27,14 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
+        before: async (user) => {
+          return {
+            data: {
+              ...user,
+              username: user.email,
+            },
+          };
+        },
         after: async (user) => {
           // Create wallet with 1 credit on new user creation
           await prisma.wallet.create({
@@ -33,11 +45,6 @@ export const auth = betterAuth({
                 create: [{ amount: 8, credit: 1 }],
               },
             },
-          });
-          // Set username = email
-          await prisma.user.update({
-            where: { id: user.id },
-            data: { username: user.email },
           });
         },
       },
