@@ -1,34 +1,34 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 
 const authRoutes = ["/signup", "/signin"];
 const publicRoutes = ["/"];
-const nextAuthRoute = "/api/auth";
 
-export default auth((req) => {
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
-  const isLoggedIn = !!req.auth;
-  const isApiRoute = url.pathname.startsWith(nextAuthRoute);
   const isAuthRoute = authRoutes.includes(url.pathname);
   const isPublicRoute = publicRoutes.includes(url.pathname);
+  const isApiAuthRoute = url.pathname.startsWith("/api/auth");
 
-  if (isApiRoute) return NextResponse.next();
+  if (isApiAuthRoute) return NextResponse.next();
+
+  const session = await auth.api.getSession({
+    headers: req.headers,
+  });
+
+  const isLoggedIn = !!session;
 
   if (isAuthRoute) {
-    if (isLoggedIn) {
-      const red = new URL("/", url.origin);
-      return NextResponse.redirect(red);
-    }
+    if (isLoggedIn) return NextResponse.redirect(new URL("/", url.origin));
     return NextResponse.next();
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    const red = new URL("/signin", url.origin);
-    return NextResponse.redirect(red);
+    return NextResponse.redirect(new URL("/signin", url.origin));
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: [

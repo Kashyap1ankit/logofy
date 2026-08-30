@@ -1,4 +1,5 @@
 "use server";
+import { headers } from "next/headers";
 
 import { replicate } from "@/lib/config";
 import { Cloudinary } from "@/lib/config";
@@ -32,11 +33,11 @@ async function uploadTo(readableStream: any, url: string) {
     });
     const uploadedVideoUrl: any = await uploadToCloud; //eslint-disable-line
 
-    const session = await auth();
+    const session = await auth.api.getSession({ headers: await headers() });
 
     await prisma.history.create({
       data: {
-        userId: session?.user.id,
+        userId: session?.user?.id as string,
         prompt: url,
         final: uploadedVideoUrl.secure_url,
       },
