@@ -18,7 +18,38 @@
 
 */
 -- AlterTable
-ALTER TABLE "Account" DROP CONSTRAINT "Account_pkey",
+-- 1. Add new columns as optional first
+ALTER TABLE "Account" 
+ADD COLUMN     "accessToken" TEXT,
+ADD COLUMN     "accountId" TEXT,
+ADD COLUMN     "expiresAt" TIMESTAMP(3),
+ADD COLUMN     "id" TEXT,
+ADD COLUMN     "idToken" TEXT,
+ADD COLUMN     "password" TEXT,
+ADD COLUMN     "providerId" TEXT,
+ADD COLUMN     "refreshToken" TEXT;
+
+-- 2. Migrate existing data to the new columns
+UPDATE "Account" SET 
+  "accountId" = "providerAccountId",
+  "providerId" = "provider",
+  "id" = gen_random_uuid()::text,
+  "accessToken" = "access_token",
+  "refreshToken" = "refresh_token",
+  "idToken" = "id_token";
+
+-- 3. Make required columns NOT NULL
+ALTER TABLE "Account" 
+ALTER COLUMN "accountId" SET NOT NULL,
+ALTER COLUMN "providerId" SET NOT NULL,
+ALTER COLUMN "id" SET NOT NULL;
+
+-- 4. Drop the old primary key and set the new one
+ALTER TABLE "Account" DROP CONSTRAINT "Account_pkey";
+ALTER TABLE "Account" ADD CONSTRAINT "Account_pkey" PRIMARY KEY ("id");
+
+-- 5. Drop the old columns
+ALTER TABLE "Account" 
 DROP COLUMN "access_token",
 DROP COLUMN "expires_at",
 DROP COLUMN "id_token",
@@ -28,16 +59,7 @@ DROP COLUMN "refresh_token",
 DROP COLUMN "scope",
 DROP COLUMN "session_state",
 DROP COLUMN "token_type",
-DROP COLUMN "type",
-ADD COLUMN     "accessToken" TEXT,
-ADD COLUMN     "accountId" TEXT NOT NULL,
-ADD COLUMN     "expiresAt" TIMESTAMP(3),
-ADD COLUMN     "id" TEXT NOT NULL,
-ADD COLUMN     "idToken" TEXT,
-ADD COLUMN     "password" TEXT,
-ADD COLUMN     "providerId" TEXT NOT NULL,
-ADD COLUMN     "refreshToken" TEXT,
-ADD CONSTRAINT "Account_pkey" PRIMARY KEY ("id");
+DROP COLUMN "type";
 
 -- CreateTable
 CREATE TABLE "Session" (

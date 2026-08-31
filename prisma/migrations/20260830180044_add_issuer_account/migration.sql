@@ -5,4 +5,10 @@
 
 */
 -- AlterTable
-ALTER TABLE "Account" ADD COLUMN     "issuer" TEXT NOT NULL;
+ALTER TABLE "Account" ADD COLUMN     "issuer" TEXT;
+
+-- Convert existing accounts to use 'database' issuer
+UPDATE "Account" SET issuer = 'https://accounts.google.com' WHERE issuer IS NULL;
+
+-- Make issuer NOT NULL
+ALTER TABLE "Account" ALTER COLUMN "issuer" SET NOT NULL;

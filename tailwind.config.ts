@@ -10,7 +10,7 @@ const svgToDataUri = require("mini-svg-data-uri");
 const colors = require("tailwindcss/colors");
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
