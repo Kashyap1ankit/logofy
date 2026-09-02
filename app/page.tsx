@@ -1,25 +1,34 @@
-import Faq from "@/components/native/Landing/faq";
-import Footer from "@/components/native/Landing/footer";
-import GalleryComp from "@/components/native/Landing/gallery";
-import { HeroSection } from "@/components/native/Landing/hero";
-import HowItWorks from "@/components/native/Landing/how-work";
 import Navbar from "@/components/native/Navbar/nav-bar";
-import { DotBackgroundDemo } from "@/components/ui/dot-background";
+import GradientBlinds from "@/components/GradientBlinds";
+import NewLandingContent from "@/components/native/Landing/new-landing";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <div className="bg-black pt-12 ">
-        <HeroSection />
-        <GalleryComp />
-        <DotBackgroundDemo>
-          <>
-            <HowItWorks />
-            <Faq />
-          </>
-        </DotBackgroundDemo>
-        <Footer />
+      <div className="min-h-screen w-full relative bg-black overflow-hidden selection:bg-purple-500/30">
+        <div className="fixed inset-0 z-0">
+          <GradientBlinds
+            gradientColors={["#FF9FFC", "#5227FF"]}
+            angle={0}
+            noise={0.62}
+            blindCount={16}
+            blindMinWidth={105}
+            spotlightRadius={0.5}
+            spotlightSoftness={1}
+            spotlightOpacity={1}
+            mouseDampening={0.15}
+            distortAmount={0}
+            shineDirection="left"
+            mixBlendMode="lighten"
+            color1="#FF9FFC"
+            color2="#5227FF"
+          />
+        </div>
+
+        <div className="relative z-10">
+          <Navbar />
+          <NewLandingContent />
+        </div>
       </div>
     </>
   );

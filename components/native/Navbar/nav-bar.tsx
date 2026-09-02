@@ -49,7 +49,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50  shadow-sm duration-500 border-b border-neutral-800 backdrop-blur-xl bg-primary-bg `}
+      className={`flex justify-between items-center sticky ${scrolled ? "top-5 w-11/12 md:w-1/2 rounded-lg mx-auto" : "top-0"} w-full p-4 z-50  shadow-sm duration-500 border-b border-neutral-800 backdrop-blur-xl `}
     >
       <Link href={"/"} className="flex gap-2 items-center" aria-label="logo">
         <Image

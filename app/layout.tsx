@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" max-w-screen bg-black">
+      <body className=" max-w-screen ">
         <Providers>
           <Toaster position="bottom-right" reverseOrder={true} />
           {children}
