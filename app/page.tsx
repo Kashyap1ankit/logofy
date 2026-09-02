@@ -1,17 +1,12 @@
-import Faq from "@/components/native/Landing/faq";
-import Footer from "@/components/native/Landing/footer";
-import GalleryComp from "@/components/native/Landing/gallery";
-import { HeroSection } from "@/components/native/Landing/hero";
-import HowItWorks from "@/components/native/Landing/how-work";
 import Navbar from "@/components/native/Navbar/nav-bar";
-
 import GradientBlinds from "@/components/GradientBlinds";
+import NewLandingContent from "@/components/native/Landing/new-landing";
 
 export default function Home() {
   return (
     <>
-      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-        <div className="absolute inset-0 -z-1">
+      <div className="min-h-screen w-full relative bg-black overflow-hidden selection:bg-purple-500/30">
+        <div className="fixed inset-0 z-0">
           <GradientBlinds
             gradientColors={["#FF9FFC", "#5227FF"]}
             angle={0}
@@ -30,26 +25,11 @@ export default function Home() {
           />
         </div>
 
-        <Navbar />
-        <div className=" pt-12  ">
-          <HeroSection />
-          <GalleryComp />
-          <HowItWorks />
-          <Faq />
-          <Footer />
+        <div className="relative z-10">
+          <Navbar />
+          <NewLandingContent />
         </div>
       </div>
     </>
   );
 }
-
-// <Navbar />
-// <div className=" pt-12 ">
-//   <HeroSection />
-//   <GalleryComp />
-
-//   <HowItWorks />
-//   <Faq />
-
-//   <Footer />
-// </div>
